@@ -1,0 +1,45 @@
+topic: financial_transactions
+context:
+  description: Simulated financial transaction data for banking, payments, and fraud analytics.
+  industries: [Banking, Payments, Fintech]
+  notes: |
+    - Includes account, transaction type, amount, balance, timestamp, and fraud flag.
+    - Useful for fraud detection, account analysis, and payment system demos.
+fields:
+  - name: transaction_id
+    type: int
+    min: 10000000
+    max: 99999999
+  - name: account_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: transaction_type
+    type: choice
+    values: [Deposit, Withdrawal, Transfer, Payment, Fee, Refund]
+  - name: amount
+    type: float
+    min: 1.0
+    max: 10000.0
+    by_transaction_type:
+      Fee: {min: 1.0, max: 100.0}
+      Refund: {min: 1.0, max: 500.0}
+      Deposit: {min: 10.0, max: 10000.0}
+      Withdrawal: {min: 10.0, max: 5000.0}
+      Transfer: {min: 10.0, max: 10000.0}
+      Payment: {min: 1.0, max: 5000.0}
+  - name: currency
+    type: choice
+    values: [USD, EUR, GBP, JPY]
+  - name: balance
+    type: float
+    min: 0.0
+    max: 100000.0
+  - name: is_fraud
+    type: choice
+    values: [false, false, false, false, true]  # ~20% chance of fraud
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

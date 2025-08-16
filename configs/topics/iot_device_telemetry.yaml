@@ -1,0 +1,46 @@
+topic: iot_device_telemetry
+context:
+  description: Simulated IoT device telemetry data for sensor analytics, device health, and predictive maintenance.
+  industries: [IoT, Manufacturing, Smart Home, Automotive]
+  notes: |
+    - Includes device, sensor, reading, status, and timestamp fields.
+    - Useful for anomaly detection, device monitoring, and time series analytics.
+fields:
+  - name: device_id
+    type: int
+    min: 100000
+    max: 999999
+  - name: device_type
+    type: choice
+    values: [Thermostat, Camera, Door Sensor, Motion Sensor, Smart Plug, Vehicle Sensor, Light Bulb, Smoke Detector]
+  - name: location
+    type: choice
+    values: [Living Room, Kitchen, Garage, Bedroom, Office, Factory Floor, Warehouse, Vehicle]
+  - name: sensor_type
+    type: choice
+    values: [Temperature, Humidity, Motion, Power, Light, Smoke, Vibration, Speed]
+  - name: reading
+    type: float
+    min: -40.0
+    max: 120.0
+    by_sensor_type:
+      Temperature: {min: -40.0, max: 120.0}
+      Humidity: {min: 0.0, max: 100.0}
+      Motion: {min: 0.0, max: 1.0}
+      Power: {min: 0.0, max: 5000.0}
+      Light: {min: 0.0, max: 10000.0}
+      Smoke: {min: 0.0, max: 1000.0}
+      Vibration: {min: 0.0, max: 10.0}
+      Speed: {min: 0.0, max: 200.0}
+  - name: status
+    type: choice
+    values: [OK, Warning, Error, Offline]
+  - name: battery_level
+    type: int
+    min: 0
+    max: 100
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

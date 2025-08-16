@@ -1,0 +1,47 @@
+topic: social_media_engagement
+context:
+  description: Simulated social media engagement data for posts, reactions, and trend analytics.
+  industries: [Social Media, Marketing, Influencer, Brand]
+  notes: |
+    - Includes user, post, engagement type, sentiment, and timestamp fields.
+    - Useful for trend detection, sentiment analysis, and campaign performance.
+fields:
+  - name: post_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: user_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: user_first_name
+    type: choice
+    values: ["Alex", "Jordan", "Morgan", "Taylor", "Casey", "Riley", "Jamie", "Avery", "Peyton", "Quinn"]
+  - name: user_last_name
+    type: choice
+    values: ["Kim", "Smith", "Lee", "Patel", "Brown", "Garcia", "Davis", "Martinez", "Wilson", "Chen"]
+  - name: platform
+    type: choice
+    values: [Twitter, Facebook, Instagram, TikTok, LinkedIn, Reddit]
+  - name: engagement_type
+    type: choice
+    values: [Like, Comment, Share, Retweet, Mention, Follow, Unfollow, Save]
+  - name: sentiment
+    type: choice
+    values: [Positive, Neutral, Negative]
+  - name: content_type
+    type: choice
+    values: [Text, Image, Video, Link, Poll, Story]
+  - name: reach
+    type: int
+    min: 1
+    max: 1000000
+  - name: engagement_score
+    type: float
+    min: 0.0
+    max: 100.0
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

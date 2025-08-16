@@ -1,0 +1,73 @@
+topic: customer_support_jira
+context:
+  description: Simulated Jira customer support ticket data for helpdesk analytics, workflow optimization, and SLA tracking.
+  industries: [SaaS, IT, Support, Enterprise]
+  notes: |
+    - Includes ticket, user, assignee, status, priority, type, resolution, and timestamps.
+    - Useful for support analytics, backlog management, and automation demos.
+fields:
+  - name: ticket_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: ticket_type
+    type: choice
+    values: [Epic, Issue, Sub-task, Bug, Task, Story]
+  - name: project_key
+    type: choice
+    values: [SUP, IT, DEV, OPS, HR, FIN]
+  - name: issue_type
+    type: choice
+    values: [Bug, Task, Story, Epic, Incident, Service Request, Change]
+  - name: summary
+    type: choice
+    values: ["Login not working", "API error on submit", "Feature request: dark mode", "Performance issue", "Data sync failed", "UI bug on dashboard", "Access request", "Password reset needed", "Integration broken", "Mobile app crash"]
+  - name: reporter
+    type: choice
+    values: ["alice@example.com", "bob@example.com", "carol@example.com", "dave@example.com", "eve@example.com", "frank@example.com", "grace@example.com", "heidi@example.com", "ivan@example.com", "judy@example.com"]
+  - name: assignee
+    type: choice
+    values: ["support1@example.com", "support2@example.com", "dev1@example.com", "dev2@example.com", "admin@example.com", "qa@example.com"]
+  - name: status
+    type: choice
+    values: [Open, In Progress, Resolved, Closed, Reopened, Waiting for Customer, Blocked]
+  - name: priority
+    type: choice
+    values: [Highest, High, Medium, Low, Lowest]
+  - name: resolution
+    type: choice
+    values: [Unresolved, Fixed, Won't Fix, Duplicate, Incomplete, Cannot Reproduce, Done]
+  - name: tags
+    type: choice
+    values:
+      - bug
+      - urgent
+      - enhancement
+      - customer
+      - backend
+      - frontend
+      - api
+      - ui
+      - regression
+      - documentation
+      - onboarding
+      - security
+      - performance
+      - feature
+      - support
+    multi: true
+  - name: created
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: updated
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: resolved
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

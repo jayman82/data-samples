@@ -1,0 +1,50 @@
+topic: hr_workforce
+context:
+  description: Simulated HR and workforce data for employee analytics, payroll, and performance management.
+  industries: [HR, Enterprise, Staffing, Payroll]
+  notes: |
+    - Includes employee, department, salary, hire/termination dates, and performance fields.
+    - Useful for workforce planning, attrition analysis, and HR analytics demos.
+fields:
+  - name: employee_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: first_name
+    type: faker
+    faker_method: first_name
+  - name: last_name
+    type: faker
+    faker_method: last_name
+  - name: employer
+    type: faker
+    faker_method: company
+  - name: department
+    type: choice
+    values: [Engineering, Sales, HR, Finance, Marketing, Operations, Support]
+  - name: job_title
+    type: choice
+    values: [Engineer, Manager, Analyst, Director, Specialist, Coordinator, Executive]
+  - name: salary
+    type: float
+    min: 40000.0
+    max: 250000.0
+  - name: hire_date
+    type: date
+    start: 2015-01-01
+    end: 2024-01-01
+  - name: termination_date
+    type: date
+    start: 2024-01-02
+    end: 2025-01-01
+  - name: is_active
+    type: choice
+    values: [true, false]
+    weights: [0.75, 0.25]
+  - name: performance_rating
+    type: choice
+    values: ["Excellent", "Good", "Satisfactory", "Needs Improvement"]
+  - name: last_review_date
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01

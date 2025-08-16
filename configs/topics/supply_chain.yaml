@@ -1,0 +1,64 @@
+topic: supply_chain
+context:
+  description: Simulated supply chain and logistics data for inventory, shipping, and supplier analytics.
+  industries: [Manufacturing, Retail, Logistics]
+  notes: |
+    - Includes shipment, product, supplier, warehouse, cost, and delivery fields.
+    - Useful for inventory optimization, delivery performance, and cost analysis.
+fields:
+  - name: shipment_id
+    type: int
+    min: 100000
+    max: 999999
+  - name: product
+    type: choice
+    values: [Widget, Gadget, Component, Material, Finished Good]
+    weights: [0.4, 0.2, 0.15, 0.15, 0.1]
+  - name: supplier
+    type: faker
+    faker_method: company
+  - name: warehouse
+    type: faker
+    faker_method: address
+  - name: warehouse_id
+    type: int
+    min: 1000
+    max: 9999
+  - name: quantity
+    type: int
+    min: 10
+    max: 1000
+  - name: cost_per_unit
+    type: float
+    min: 1.0
+    max: 100.0
+  - name: total_cost
+    type: formula
+    formula: quantity * cost_per_unit
+  - name: shipped_date
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: estimated_processing_days
+    type: int
+    min: 3
+    max: 21
+  - name: variance_days
+    type: int
+    min: -3
+    max: 5
+  - name: actual_processing_days
+    type: formula
+    formula: estimated_processing_days + variance_days
+  - name: variance_pct
+    type: formula
+    formula: variance_days / estimated_processing_days
+  - name: delivery_days
+    type: int
+    min: 1
+    max: 14
+  - name: delivered_date
+    type: formula
+    formula: shipped_date + delivery_days
+    output_format: '%Y-%m-%dT%H:%M:%S'

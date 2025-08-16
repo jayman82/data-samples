@@ -1,0 +1,50 @@
+topic: it_security_events
+context:
+  description: Simulated IT security event data for threat detection, incident response, and compliance analytics.
+  industries: [IT, Security, SaaS, Enterprise]
+  notes: |
+    - Includes user, device, event type, severity, location, and timestamp fields.
+    - Useful for SIEM, SOC, and security analytics demos.
+fields:
+  - name: event_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: user_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: device_id
+    type: int
+    min: 100000
+    max: 999999
+  - name: event_type
+    type: choice
+    values: [Login, Failed Login, Malware Alert, Policy Violation, Data Exfiltration, Privilege Escalation]
+  - name: severity
+    type: choice
+    values: [Low, Medium, High, Critical]
+  - name: location
+    type: choice
+    values: [US, EU, APAC, Remote, Onsite]
+  - name: source_ip
+    type: choice
+    values: ["8.8.8.8", "203.0.113.4", "198.51.100.5", "203.0.113.99", "8.8.4.4", "198.51.100.250", "203.0.113.200", "203.0.113.100", "23.45.67.89", "52.23.45.67"]
+  - name: destination_ip
+    type: choice
+    values: ["203.0.113.200", "198.51.100.250", "8.8.4.4", "203.0.113.100", "23.45.67.89", "52.23.45.67", "104.26.10.78", "185.199.108.153", "151.101.1.69", "34.117.59.81"]
+  - name: port
+    type: int
+    min: 1
+    max: 65535
+  - name: application
+    type: choice
+    values: [SSH, HTTP, HTTPS, RDP, SMB, FTP, DNS, SQL, Email, CustomApp]
+  - name: is_successful
+    type: choice
+    values: [true, false, true, true, true]  # ~80% success
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

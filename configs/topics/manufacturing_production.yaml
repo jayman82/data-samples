@@ -1,0 +1,52 @@
+topic: manufacturing_production
+context:
+  description: Simulated manufacturing and production event data for plant analytics, machine monitoring, and output forecasting.
+  industries: [Manufacturing, Industrial, Automotive, Electronics]
+  notes: |
+    - Includes machine, product, event, downtime, output, and timestamp fields.
+    - Useful for OEE, downtime analysis, and predictive maintenance demos.
+fields:
+  - name: event_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: plant_id
+    type: int
+    min: 100
+    max: 999
+  - name: machine_id
+    type: int
+    min: 1000
+    max: 9999
+  - name: machine_type
+    type: choice
+    values: [CNC, Robot Arm, Conveyor, Press, Welder, 3D Printer, Packaging, Inspection]
+  - name: product
+    type: choice
+    values: [Widget, Gear, Panel, Circuit, Chassis, Motor, Assembly, Module]
+  - name: event_type
+    type: choice
+    values: [Start, Stop, Fault, Maintenance, Idle, Output, Inspection]
+  - name: downtime_minutes
+    type: int
+    min: 0
+    max: 240
+  - name: output_qty
+    type: int
+    min: 0
+    max: 1000
+  - name: response_time_seconds
+    type: int
+    min: 5
+    max: 3600
+  - name: operator
+    type: choice
+    values: ["Alex", "Jordan", "Morgan", "Taylor", "Casey", "Riley", "Jamie", "Avery", "Peyton", "Quinn"]
+  - name: shift
+    type: choice
+    values: [Day, Night, Swing]
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

@@ -1,0 +1,64 @@
+topic: hockey_player_analytics
+context:
+  description: Simulated hockey player analytics data for sports performance, scouting, and fan engagement.
+  industries: [Sports, Analytics, Media, Fantasy]
+  notes: |
+    - Includes player, team, position, stats, and game event fields.
+    - Useful for performance tracking, fantasy sports, and fan dashboards.
+fields:
+  - name: player_id
+    type: int
+    min: 1000
+    max: 9999
+  - name: first_name
+    type: choice
+    values: ["Connor", "Sidney", "Auston", "Nathan", "Leon", "Carey", "Victor", "Patrice", "Steven", "Jonathan"]
+  - name: last_name
+    type: choice
+    values: ["McDavid", "Crosby", "Matthews", "MacKinnon", "Draisaitl", "Price", "Hedman", "Bergeron", "Stamkos", "Toews"]
+  - name: team
+    type: choice
+    values: ["Oilers", "Penguins", "Maple Leafs", "Avalanche", "Oilers", "Canadiens", "Lightning", "Bruins", "Lightning", "Blackhawks"]
+  - name: position
+    type: choice
+    values: [Center, Left Wing, Right Wing, Defense]
+  - name: game_id
+    type: int
+    min: 100000
+    max: 999999
+  - name: goals
+    type: int
+    min: 0
+    max: 5
+  - name: assists
+    type: int
+    min: 0
+    max: 5
+  - name: points
+    type: formula
+    formula: goals + assists
+  - name: shots
+    type: int
+    min: 0
+    max: 10
+  - name: hits
+    type: int
+    min: 0
+    max: 10
+  - name: penalty_minutes
+    type: int
+    min: 0
+    max: 10
+  - name: plus_minus
+    type: int
+    min: -5
+    max: 5
+  - name: time_on_ice_minutes
+    type: float
+    min: 0.0
+    max: 30.0
+  - name: game_date
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

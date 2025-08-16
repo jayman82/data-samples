@@ -1,0 +1,43 @@
+topic: healthcare_events
+context:
+  description: Simulated healthcare event data for hospital analytics, resource planning, and patient care.
+  industries: [Healthcare, Hospital, Clinic]
+  notes: |
+    - Includes patient, provider, event type, diagnosis, cost, and timestamp fields.
+    - Useful for operational analytics, patient flow, and cost forecasting.
+fields:
+  - name: event_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: patient_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: provider_id
+    type: int
+    min: 1000
+    max: 9999
+  - name: event_type
+    type: choice
+    values: [Admission, Discharge, Procedure, Consultation, Lab Test, Emergency]
+  - name: department
+    type: choice
+    values: [Cardiology, Oncology, Emergency, Pediatrics, Surgery, General]
+  - name: diagnosis
+    type: choice
+    values: [Hypertension, Diabetes, Fracture, Infection, Cancer, Routine]
+  - name: cost
+    type: float
+    min: 100.0
+    max: 20000.0
+    by_event_type:
+      Procedure: {min: 1000.0, max: 20000.0}
+      Lab Test: {min: 100.0, max: 2000.0}
+      Admission: {min: 2000.0, max: 10000.0}
+      Emergency: {min: 500.0, max: 15000.0}
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

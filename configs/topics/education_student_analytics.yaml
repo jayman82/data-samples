@@ -1,0 +1,50 @@
+topic: education_student_analytics
+context:
+  description: Simulated student analytics data for education, learning outcomes, and engagement tracking.
+  industries: [Education, EdTech, K-12, Higher Ed]
+  notes: |
+    - Includes student, course, grade, attendance, engagement, and timestamp fields.
+    - Useful for academic performance, retention, and intervention analytics.
+fields:
+  - name: student_id
+    type: int
+    min: 100000
+    max: 999999
+  - name: student_first_name
+    type: choice
+    values: ["Alex", "Jordan", "Morgan", "Taylor", "Casey", "Riley", "Jamie", "Avery", "Peyton", "Quinn"]
+  - name: student_last_name
+    type: choice
+    values: ["Kim", "Smith", "Lee", "Patel", "Brown", "Garcia", "Davis", "Martinez", "Wilson", "Chen"]
+  - name: grade_level
+    type: choice
+    values: [Freshman, Sophomore, Junior, Senior, Graduate]
+  - name: course
+    type: choice
+    values: [Math, Science, English, History, Art, Computer Science, Biology, Chemistry, Economics, Music]
+  - name: instructor_first_name
+    type: choice
+    values: ["Alex", "Jordan", "Morgan", "Taylor", "Casey", "Riley", "Jamie", "Avery", "Peyton", "Quinn"]
+  - name: instructor_last_name
+    type: choice
+    values: ["Adams", "Baker", "Clark", "Diaz", "Evans", "Foster", "Green", "Hall", "Irwin", "Jones"]
+  - name: grade
+    type: float
+    min: 0.0
+    max: 100.0
+  - name: attendance_pct
+    type: float
+    min: 50.0
+    max: 100.0
+  - name: engagement_score
+    type: int
+    min: 0
+    max: 10
+  - name: intervention_flag
+    type: choice
+    values: [false, false, false, true]  # ~25% flagged
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

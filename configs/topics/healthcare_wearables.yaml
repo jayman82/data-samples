@@ -1,0 +1,46 @@
+topic: healthcare_wearables
+context:
+  description: Simulated healthcare wearable device data for health monitoring, coaching, and anomaly detection.
+  industries: [Healthcare, Wellness, Fitness, Insurance]
+  notes: |
+    - Includes user, device, vital signs, activity, and alert fields.
+    - Useful for health coaching, anomaly alerts, and personalized wellness advice.
+fields:
+  - name: user_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: user_first_name
+    type: faker
+    faker_method: first_name
+  - name: user_last_name
+    type: faker
+    faker_method: last_name
+  - name: device_type
+    type: choice
+    values: [Smartwatch, Fitness Band, Heart Monitor, Sleep Tracker, Blood Pressure Cuff]
+  - name: heart_rate
+    type: int
+    min: 40
+    max: 200
+  - name: steps
+    type: int
+    min: 0
+    max: 30000
+  - name: sleep_hours
+    type: float
+    min: 0.0
+    max: 12.0
+  - name: calories_burned
+    type: int
+    min: 0
+    max: 5000
+  - name: alert
+    type: choice
+    values: [None, High Heart Rate, Low Heart Rate, Fall Detected, Irregular Rhythm, Low Battery]
+    weights: [0.85, 0.05, 0.03, 0.03, 0.02, 0.02]
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

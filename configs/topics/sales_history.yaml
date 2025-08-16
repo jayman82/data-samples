@@ -1,0 +1,49 @@
+topic: sales_history
+context:
+  description: Simulated sales transaction data for retail or SaaS analytics and forecasting.
+  industries: [Retail, SaaS, eCommerce]
+  notes: |
+    - Includes customer, product, price, region, date, and discount fields.
+    - Useful for revenue analysis, trend detection, and forecasting demos.
+fields:
+  - name: transaction_id
+    type: int
+    min: 100000
+    max: 999999
+  - name: customer_id
+    type: int
+    min: 1000
+    max: 9999
+  - name: product
+    type: choice
+    values: [Widget, Gadget, Subscription, Service, Add-on]
+  - name: customer_company
+    type: faker
+    faker_method: company
+  - name: shipping_address
+    type: faker
+    faker_method: address
+  - name: region
+    type: choice
+    values: [North America, Europe, APAC, South America]
+    weights: [0.5, 0.2, 0.2, 0.1]
+  - name: price
+    type: float
+    min: 10.0
+    max: 500.0
+  - name: quantity
+    type: int
+    min: 1
+    max: 10
+  - name: discount
+    type: float
+    min: 0.0
+    max: 0.3
+  - name: total
+    type: formula
+    formula: price * quantity * (1 - discount)
+  - name: date
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

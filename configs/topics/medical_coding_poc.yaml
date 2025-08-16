@@ -1,0 +1,60 @@
+topic: medical_coding_poc
+context:
+  description: Simulated medical coding data for AI-assisted coding, billing, and workflow automation.
+  industries: [Healthcare, Medical Billing, Coding, Insurance]
+  notes: |
+    - Includes patient, provider, diagnosis, procedure, code, and claim fields.
+    - Useful for coding automation, claim validation, and audit support.
+fields:
+  - name: encounter_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: patient_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: patient_first_name
+    type: choice
+    values: ["Alex", "Jordan", "Morgan", "Taylor", "Casey", "Riley", "Jamie", "Avery", "Peyton", "Quinn"]
+  - name: patient_last_name
+    type: choice
+    values: ["Kim", "Smith", "Lee", "Patel", "Brown", "Garcia", "Davis", "Martinez", "Wilson", "Chen"]
+  - name: provider_id
+    type: int
+    min: 1000
+    max: 9999
+  - name: provider_first_name
+    type: choice
+    values: ["Sam", "Chris", "Pat", "Robin", "Drew", "Alexis", "Taylor", "Jordan", "Morgan", "Casey"]
+  - name: provider_last_name
+    type: choice
+    values: ["Adams", "Baker", "Clark", "Diaz", "Evans", "Foster", "Green", "Hall", "Irwin", "Jones"]
+  - name: diagnosis
+    type: choice
+    values: ["Hypertension", "Diabetes", "Asthma", "Fracture", "Infection", "Cancer", "Migraine", "Obesity", "COPD", "Anxiety"]
+  - name: diagnosis_code
+    type: choice
+    values: ["I10", "E11.9", "J45.909", "S52.501A", "B99.9", "C80.1", "G43.909", "E66.9", "J44.9", "F41.9"]
+  - name: procedure
+    type: choice
+    values: ["Office Visit", "Blood Test", "X-Ray", "MRI", "Surgery", "Vaccination", "Physical Therapy", "Consultation", "Prescription", "Ultrasound"]
+  - name: procedure_code
+    type: choice
+    values: ["99213", "80050", "71020", "70551", "47562", "90715", "97110", "99242", "J3490", "76700"]
+  - name: claim_amount
+    type: float
+    min: 50.0
+    max: 5000.0
+  - name: claim_status
+    type: choice
+    values: [Submitted, Approved, Denied, Pending, Rejected]
+  - name: coding_confidence
+    type: float
+    min: 0.5
+    max: 1.0
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

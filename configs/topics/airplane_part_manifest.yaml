@@ -1,0 +1,68 @@
+topic: airplane_part_manifest
+context:
+  description: Simulated airplane part manifest data for inventory, maintenance, and logistics tracking.
+  industries: [Aerospace, Aviation, Manufacturing, Logistics]
+  notes: |
+    - Includes part, description, quantity, condition, serial number, and related fields.
+    - Useful for inventory management, maintenance tracking, and compliance.
+fields:
+  - name: part_number
+    type: string
+    pattern: 'PN-{alpha}{num}'
+    components:
+      alpha:
+        type: choice
+        values: ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K"]
+      num:
+        type: int
+        min: 1000
+        max: 9999
+  - name: inspector_name
+    type: faker
+    faker_method: name
+  - name: inspector_email_faker
+    type: faker
+    faker_method: free_email
+  - name: inspector_email
+    type: formula
+    formula: 'inspector_name.lower().replace(" ", ".") + inspector_email_faker[inspector_email_faker.index("@"): ]'
+  - name: stock_line_id
+    type: string
+    pattern: 'SL-{num}'
+    components:
+      num:
+        type: int
+        min: 10000
+        max: 99999
+  - name: purchase_order
+    type: string
+    pattern: 'PO-{num}'
+    components:
+      num:
+        type: int
+        min: 100000
+        max: 999999
+  - name: description
+    type: choice
+    values: ["Hydraulic Pump", "Landing Gear", "Avionics Module", "Fuel Valve", "Oxygen Sensor", "Brake Assembly", "Navigation Light", "Cabin Pressure Regulator", "Wing Flap", "Engine Mount"]
+  - name: quantity
+    type: int
+    min: 1
+    max: 50
+  - name: condition
+    type: choice
+    values: [New, Serviceable, Overhauled, Repaired, As Removed, Scrap]
+  - name: serial_number
+    type: string
+    pattern: 'SN-{alpha}{num}'
+    components:
+      alpha:
+        type: choice
+        values: ["X", "Y", "Z", "M", "N", "P", "Q", "R", "S", "T"]
+      num:
+        type: int
+        min: 100000
+        max: 999999
+  - name: aircraft_model
+    type: choice
+    values: ["Boeing 737", "Airbus A320", "Boeing 777", "Embraer E190", "Bombardier CRJ900", "Airbus A350", "Boeing 787", "Cessna 172", "Gulfstream G650", "ATR 72"]

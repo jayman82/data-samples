@@ -1,0 +1,518 @@
+topic: aws_cost
+context:
+  description: Simulated AWS cost and usage data for FinOps analytics and AI-driven optimization.
+  vendor: AWS
+  notes: |
+    - DB services (e.g., RDS, DynamoDB) tend to have higher costs than compute.
+    - Storage costs (e.g., S3, EBS, Glacier) are lower per unit but can add up with volume.
+    - Includes region, account, resource, and tagging for advanced FinOps analysis.
+    - Supports forecasted and actual cost, savings plan, reserved instance, and spot usage analysis.
+    - Includes detailed breakdowns for service, usage type, purchase option, and cost allocation tags.
+fields:
+  - name: account_id
+    type: choice
+    values: ["123456789012", "210987654321", "555555555555"]
+    description: AWS Account ID (12 digits).
+  - name: payer_account_id
+    type: choice
+    values: ["123456789012", "210987654321"]
+    description: AWS payer/master account ID for consolidated billing.
+  - name: billing_period
+    type: choice
+    values: ["2024-01", "2024-02", "2024-03", "2024-04"]
+    description: Billing period in year-month format.
+  - name: region
+    type: choice
+    values: [us-east-1, us-west-2, eu-west-1, ap-southeast-1, sa-east-1, ca-central-1, eu-central-1, ap-northeast-1]
+    description: AWS region where the resource is deployed.
+  - name: usage_start_time
+    type: datetime
+    min: "2024-01-01T00:00:00"
+    max: "2025-08-16T00:00:00"
+    description: Start time of the usage period.
+  - name: usage_end_time
+    type: datetime
+    min: "2024-01-01T01:00:00"
+    max: "2025-08-16T23:59:59"
+    description: End time of the usage period.
+  - name: service
+    type: choice
+    description: AWS service name (including Bedrock for generative AI workloads).
+    values:
+      - EC2
+      - S3
+      - RDS
+      - Lambda
+      - DynamoDB
+      - Redshift
+      - CloudFront
+      - SageMaker
+      - Bedrock
+      - EKS
+      - ECS
+      - VPC
+      - CloudWatch
+      - Kinesis
+      - Glue
+      - Athena
+      - StepFunctions
+      - SNS
+      - SQS
+      - API Gateway
+      - Route53
+      - Elastic Beanstalk
+      - Elasticache
+      - Aurora
+      - AppStream
+      - WorkSpaces
+      - Inspector
+      - Macie
+      - GuardDuty
+      - CodeBuild
+      - CodePipeline
+      - CodeDeploy
+      - QuickSight
+      - Organizations
+      - Cost Explorer
+      - Savings Plans
+      - Reserved Instances
+      - Marketplace
+      - Support
+      - Control Tower
+      - License Manager
+      - CloudTrail
+      - Config
+      - Systems Manager
+      - Secrets Manager
+      - Certificate Manager
+      - WAF
+      - Shield
+      - Firewall Manager
+      - App Mesh
+      - App Runner
+      - EventBridge
+      - DataSync
+      - Transfer Family
+      - FSx
+      - EFS
+      - Backup
+      - Outposts
+      - Snowball
+      - Ground Station
+      - Braket
+      - RoboMaker
+      - IoT Core
+      - IoT Analytics
+      - IoT Events
+      - IoT Greengrass
+      - IoT SiteWise
+      - IoT Things Graph
+      - Timestream
+      - Quantum Ledger Database
+      - Managed Blockchain
+      - Elastic Transcoder
+      - MediaConvert
+      - MediaLive
+      - MediaPackage
+      - MediaStore
+      - MediaTailor
+      - Chime
+      - Connect
+      - Pinpoint
+      - Simple Email Service
+      - Simple Notification Service
+      - Simple Queue Service
+      - Simple Workflow Service
+      - SimpleDB
+      - WorkDocs
+      - WorkMail
+      - WorkLink
+      - WorkSpaces Web
+      - X-Ray
+      - Glue
+      - Athena
+      - StepFunctions
+      - SNS
+      - SQS
+      - API Gateway
+      - Route53
+      - Elastic Beanstalk
+      - Elasticache
+      - Aurora
+      - AppStream
+      - WorkSpaces
+      - Inspector
+      - Macie
+      - GuardDuty
+      - CodeBuild
+      - CodePipeline
+      - CodeDeploy
+      - QuickSight
+      - Organizations
+      - Cost Explorer
+      - Savings Plans
+      - Reserved Instances
+      - Marketplace
+      - Support
+      - Control Tower
+      - License Manager
+      - CloudTrail
+      - Config
+      - Systems Manager
+      - Secrets Manager
+      - Certificate Manager
+      - WAF
+      - Shield
+      - Firewall Manager
+      - App Mesh
+      - App Runner
+      - EventBridge
+      - DataSync
+      - Transfer Family
+      - FSx
+      - EFS
+      - Backup
+      - Outposts
+      - Snowball
+      - Ground Station
+      - Braket
+      - RoboMaker
+      - IoT Core
+      - IoT Analytics
+      - IoT Events
+      - IoT Greengrass
+      - IoT SiteWise
+      - IoT Things Graph
+      - Timestream
+      - Quantum Ledger Database
+      - Managed Blockchain
+      - Elastic Transcoder
+      - MediaConvert
+      - MediaLive
+      - MediaPackage
+      - MediaStore
+      - MediaTailor
+      - Chime
+      - Connect
+      - Pinpoint
+      - Simple Email Service
+      - Simple Notification Service
+      - Simple Queue Service
+      - Simple Workflow Service
+      - SimpleDB
+      - WorkDocs
+      - WorkMail
+      - WorkLink
+      - WorkSpaces Web
+      - X-Ray
+  - name: product_code
+    type: choice
+    values: ["AmazonEC2", "AmazonS3", "AmazonRDS", "AmazonDynamoDB", "AmazonSageMaker"]
+    description: AWS product code (e.g., AmazonEC2, AmazonS3).
+  - name: operation
+    type: choice
+    values: ["RunInstances", "GetObject", "PutObject", "ReadCapacityUnits", "WriteCapacityUnits", "InvokeEndpoint"]
+    description: Operation performed (e.g., RunInstances, GetObject).
+  - name: usage_type
+    type: choice
+    values: ["BoxUsage:t2.micro", "DataTransfer-Out-Bytes", "Requests-Tier1", "TimedStorage-ByteHrs", "CPUCredits"]
+    description: AWS usage type (e.g., BoxUsage:t2.micro, DataTransfer-Out-Bytes, Requests-Tier1).
+  - name: usage_unit
+    type: choice
+    values: ["Hours", "GB", "Requests", "ReadUnits", "WriteUnits"]
+    description: Unit of usage (e.g., Hours, GB, Requests).
+  - name: pricing_term
+    type: choice
+    values: [OnDemand, Reserved, SavingsPlan, Spot, FreeTier]
+    description: Pricing term for the resource.
+  - name: purchase_option
+    type: choice
+    values: [OnDemand, Reserved, SavingsPlan, Spot]
+    description: Purchase option for the resource.
+  - name: resource_id
+    type: choice
+    values: ["arn:aws:ec2:us-east-1:123456789012:instance/i-0abcd1234efgh5678", "arn:aws:s3:::mybucket", "arn:aws:rds:us-west-2:210987654321:db:mydb"]
+    description: AWS ARN for the resource.
+  - name: parent_resource_id
+    type: choice
+    values: ["arn:aws:ec2:us-east-1:123456789012:vpc/vpc-0a1b2c3d4e5f6g7h8", null]
+    description: ARN of the parent resource, if applicable.
+  - name: related_resources
+    type: choice
+    values: [["arn:aws:ec2:us-east-1:123456789012:volume/vol-0a1b2c3d4e5f6g7h8"], []]
+    description: List of ARNs for related resources.
+  - name: tags
+    type: choice
+    values:
+      - environment: "prod"
+        project: "finops"
+        owner: "alice"
+        cost_center: "CC123"
+        team: "cloud"
+        application: "billing"
+        department: "IT"
+        business_unit: "Finance"
+        workload: "batch"
+      - environment: "dev"
+        project: "mlops"
+        owner: "bob"
+        cost_center: "CC456"
+        team: "ml"
+        application: "training"
+        department: "R&D"
+        business_unit: "AI"
+        workload: "realtime"
+    description: Key-value tags for resource grouping, cost allocation, and business mapping.
+  - name: usage_quantity
+    type: float
+    min: 0.01
+    max: 1000000
+    distribution: normal
+    by_service:
+      # Default rates for any missing services
+      FSx: {rate: 0.01, base_fee: 0.0}
+      EFS: {rate: 0.01, base_fee: 0.0}
+      Backup: {rate: 0.01, base_fee: 0.0}
+      Outposts: {rate: 0.01, base_fee: 0.0}
+      Snowball: {rate: 0.01, base_fee: 0.0}
+      Ground Station: {rate: 0.01, base_fee: 0.0}
+      Braket: {rate: 0.01, base_fee: 0.0}
+      RoboMaker: {rate: 0.01, base_fee: 0.0}
+      IoT Core: {rate: 0.01, base_fee: 0.0}
+      IoT Analytics: {rate: 0.01, base_fee: 0.0}
+      IoT Events: {rate: 0.01, base_fee: 0.0}
+      IoT Greengrass: {rate: 0.01, base_fee: 0.0}
+      IoT SiteWise: {rate: 0.01, base_fee: 0.0}
+      IoT Things Graph: {rate: 0.01, base_fee: 0.0}
+      Timestream: {rate: 0.01, base_fee: 0.0}
+      Quantum Ledger Database: {rate: 0.01, base_fee: 0.0}
+      Elastic Transcoder: {rate: 0.01, base_fee: 0.0}
+      MediaConvert: {rate: 0.01, base_fee: 0.0}
+      MediaLive: {rate: 0.01, base_fee: 0.0}
+      MediaPackage: {rate: 0.01, base_fee: 0.0}
+      MediaStore: {rate: 0.01, base_fee: 0.0}
+      MediaTailor: {rate: 0.01, base_fee: 0.0}
+      Chime: {rate: 0.01, base_fee: 0.0}
+      Connect: {rate: 0.01, base_fee: 0.0}
+      Pinpoint: {rate: 0.01, base_fee: 0.0}
+      Simple Email Service: {rate: 0.01, base_fee: 0.0}
+      Simple Notification Service: {rate: 0.01, base_fee: 0.0}
+      Simple Queue Service: {rate: 0.01, base_fee: 0.0}
+      Simple Workflow Service: {rate: 0.01, base_fee: 0.0}
+      SimpleDB: {rate: 0.01, base_fee: 0.0}
+      WorkDocs: {rate: 0.01, base_fee: 0.0}
+      WorkMail: {rate: 0.01, base_fee: 0.0}
+      WorkLink: {rate: 0.01, base_fee: 0.0}
+      WorkSpaces Web: {rate: 0.01, base_fee: 0.0}
+      X-Ray: {rate: 0.01, base_fee: 0.0}
+      EC2: {min: 1, max: 720, unit: hours}
+      S3: {min: 10000, max: 100000000, unit: GB-month}
+      Lambda: {min: 100000, max: 100000000, unit: requests}
+      RDS: {min: 10, max: 744, unit: hours}
+      DynamoDB: {min: 1000, max: 10000000, unit: read/write units}
+      EBS: {min: 100, max: 100000, unit: GB-month}
+      Glacier: {min: 100, max: 100000, unit: GB-month}
+      Redshift: {min: 10, max: 744, unit: hours}
+      CloudFront: {min: 1000, max: 10000000, unit: GB}
+      ElastiCache: {min: 10, max: 744, unit: hours}
+      Kinesis: {min: 1000, max: 10000000, unit: records}
+      EMR: {min: 1, max: 744, unit: hours}
+      VPC: {min: 1, max: 100, unit: endpoints}
+      Route53: {min: 1, max: 100000, unit: queries}
+      SNS: {min: 1, max: 1000000, unit: notifications}
+      SQS: {min: 1, max: 1000000, unit: messages}
+      CloudWatch: {min: 1, max: 1000000, unit: metrics}
+      ECR: {min: 1, max: 100000, unit: images}
+      ECS: {min: 1, max: 744, unit: hours}
+      EKS: {min: 1, max: 744, unit: hours}
+      SageMaker: {min: 1, max: 744, unit: hours}
+      Athena: {min: 1, max: 100000, unit: queries}
+      Glue: {min: 1, max: 10000, unit: jobs}
+      StepFunctions: {min: 1, max: 100000, unit: executions}
+      AppRunner: {min: 1, max: 744, unit: hours}
+      CodeBuild: {min: 1, max: 10000, unit: minutes}
+      CodePipeline: {min: 1, max: 10000, unit: executions}
+  - name: cost
+    type: formula
+    formula: usage_quantity * rate + base_fee
+    by_service:
+      EC2: {rate: 0.10, base_fee: 1.0}
+      S3: {rate: 0.023, base_fee: 0.0}
+      Lambda: {rate: 0.00001667, base_fee: 0.0}
+      RDS: {rate: 0.25, base_fee: 2.0}
+      DynamoDB: {rate: 0.00065, base_fee: 0.0}
+      EBS: {rate: 0.08, base_fee: 0.0}
+      Glacier: {rate: 0.004, base_fee: 0.0}
+      Redshift: {rate: 0.25, base_fee: 2.0}
+      CloudFront: {rate: 0.085, base_fee: 0.0}
+      ElastiCache: {rate: 0.20, base_fee: 1.0}
+      Kinesis: {rate: 0.015, base_fee: 0.0}
+      EMR: {rate: 0.27, base_fee: 1.0}
+      VPC: {rate: 0.01, base_fee: 0.0}
+      Route53: {rate: 0.40, base_fee: 0.0}
+      SNS: {rate: 0.0000005, base_fee: 0.0}
+      SQS: {rate: 0.0000004, base_fee: 0.0}
+      CloudWatch: {rate: 0.30, base_fee: 0.0}
+      ECR: {rate: 0.10, base_fee: 0.0}
+      ECS: {rate: 0.10, base_fee: 0.0}
+      EKS: {rate: 0.10, base_fee: 0.0}
+      SageMaker: {rate: 0.50, base_fee: 2.0}
+      Athena: {rate: 5.0, base_fee: 0.0}
+      Glue: {rate: 0.44, base_fee: 0.0}
+      StepFunctions: {rate: 0.000025, base_fee: 0.0}
+      AppRunner: {rate: 0.007, base_fee: 0.0}
+      CodeBuild: {rate: 0.005, base_fee: 0.0}
+      CodePipeline: {rate: 1.0, base_fee: 0.0}
+      Bedrock: {rate: 0.12, base_fee: 0.0}
+      Managed Blockchain: {rate: 0.05, base_fee: 0.0}
+      Elastic Beanstalk: {rate: 0.02, base_fee: 0.0}
+      Aurora: {rate: 0.10, base_fee: 0.0}
+      AppStream: {rate: 0.15, base_fee: 0.0}
+      WorkSpaces: {rate: 0.25, base_fee: 0.0}
+      Inspector: {rate: 0.10, base_fee: 0.0}
+      Macie: {rate: 0.10, base_fee: 0.0}
+      GuardDuty: {rate: 0.10, base_fee: 0.0}
+      CodeDeploy: {rate: 0.02, base_fee: 0.0}
+      QuickSight: {rate: 0.30, base_fee: 0.0}
+      Organizations: {rate: 0.01, base_fee: 0.0}
+      Cost Explorer: {rate: 0.01, base_fee: 0.0}
+      Savings Plans: {rate: 0.01, base_fee: 0.0}
+      Reserved Instances: {rate: 0.01, base_fee: 0.0}
+      Marketplace: {rate: 0.01, base_fee: 0.0}
+      Support: {rate: 0.01, base_fee: 0.0}
+      Control Tower: {rate: 0.01, base_fee: 0.0}
+      License Manager: {rate: 0.01, base_fee: 0.0}
+      CloudTrail: {rate: 0.01, base_fee: 0.0}
+      Config: {rate: 0.01, base_fee: 0.0}
+      Systems Manager: {rate: 0.01, base_fee: 0.0}
+      Secrets Manager: {rate: 0.01, base_fee: 0.0}
+      Certificate Manager: {rate: 0.01, base_fee: 0.0}
+      WAF: {rate: 0.01, base_fee: 0.0}
+      Shield: {rate: 0.01, base_fee: 0.0}
+      Firewall Manager: {rate: 0.01, base_fee: 0.0}
+      App Mesh: {rate: 0.01, base_fee: 0.0}
+      EventBridge: {rate: 0.01, base_fee: 0.0}
+      DataSync: {rate: 0.01, base_fee: 0.0}
+      Transfer Family: {rate: 0.01, base_fee: 0.0}
+      FSx: {rate: 0.01, base_fee: 0.0}
+      EFS: {rate: 0.01, base_fee: 0.0}
+      Backup: {rate: 0.01, base_fee: 0.0}
+      Outposts: {rate: 0.01, base_fee: 0.0}
+      Snowball: {rate: 0.01, base_fee: 0.0}
+      Ground Station: {rate: 0.01, base_fee: 0.0}
+      Braket: {rate: 0.01, base_fee: 0.0}
+      RoboMaker: {rate: 0.01, base_fee: 0.0}
+      IoT Core: {rate: 0.01, base_fee: 0.0}
+      IoT Analytics: {rate: 0.01, base_fee: 0.0}
+      IoT Events: {rate: 0.01, base_fee: 0.0}
+      IoT Greengrass: {rate: 0.01, base_fee: 0.0}
+      IoT SiteWise: {rate: 0.01, base_fee: 0.0}
+      IoT Things Graph: {rate: 0.01, base_fee: 0.0}
+      Timestream: {rate: 0.01, base_fee: 0.0}
+      Quantum Ledger Database: {rate: 0.01, base_fee: 0.0}
+      Elastic Transcoder: {rate: 0.01, base_fee: 0.0}
+      MediaConvert: {rate: 0.01, base_fee: 0.0}
+      MediaLive: {rate: 0.01, base_fee: 0.0}
+      MediaPackage: {rate: 0.01, base_fee: 0.0}
+      MediaStore: {rate: 0.01, base_fee: 0.0}
+      MediaTailor: {rate: 0.01, base_fee: 0.0}
+      Chime: {rate: 0.01, base_fee: 0.0}
+      Connect: {rate: 0.01, base_fee: 0.0}
+      Pinpoint: {rate: 0.01, base_fee: 0.0}
+      Simple Email Service: {rate: 0.01, base_fee: 0.0}
+      Simple Notification Service: {rate: 0.01, base_fee: 0.0}
+      Simple Queue Service: {rate: 0.01, base_fee: 0.0}
+      Simple Workflow Service: {rate: 0.01, base_fee: 0.0}
+      SimpleDB: {rate: 0.01, base_fee: 0.0}
+      WorkDocs: {rate: 0.01, base_fee: 0.0}
+      WorkMail: {rate: 0.01, base_fee: 0.0}
+      WorkLink: {rate: 0.01, base_fee: 0.0}
+      WorkSpaces Web: {rate: 0.01, base_fee: 0.0}
+      X-Ray: {rate: 0.01, base_fee: 0.0}
+    description: Actual AWS cost calculated from usage and service rate.
+  - name: credit_applied
+    type: float
+    min: 0.0
+    max: 100.0
+    description: Credit amount applied to the cost (e.g., promotional, enterprise agreement).
+  - name: tax_amount
+    type: float
+    min: 0.0
+    max: 200.0
+    description: Tax amount applied to the cost.
+  - name: currency
+    type: choice
+    values: ["USD", "EUR", "JPY"]
+    default: USD
+    description: Currency for the cost record.
+  - name: exchange_rate
+    type: float
+    min: 0.5
+    max: 150.0
+    description: Exchange rate to USD if currency is not USD.
+  - name: forecasted_cost
+    type: float
+    formula: cost * (1 + random(-0.05, 0.10))
+    description: Forecasted cost for the next period, with random fluctuation.
+  - name: amortized_cost
+    type: float
+    formula: cost * (1 - random(0.01, 0.10))
+    description: Amortized cost after discounts and credits.
+  - name: blended_cost
+    type: float
+    formula: (cost + forecasted_cost) / 2
+    description: Blended cost for consolidated billing scenarios.
+  - name: savings_plan_applied
+    type: choice
+    values: [true, false]
+    description: Whether a Savings Plan or Reserved Instance was applied.
+  - name: spot_instance
+    type: choice
+    values: [true, false]
+    description: Whether the resource is a spot instance (for EC2, EMR, etc.).
+  - name: reserved_instance
+    type: choice
+    values: [true, false]
+    description: Whether the resource is a reserved instance (for EC2, RDS, etc.).
+  - name: anomaly_detected
+    type: choice
+    values: [true, false]
+    description: Whether an anomaly was detected in this cost record.
+  - name: anomaly_score
+    type: float
+    min: 0.0
+    max: 1.0
+    description: Anomaly score (0-1) for AI/ML anomaly detection.
+  - name: optimization_recommendation
+    type: choice
+    values: ["Switch to Savings Plan", "Right-size EC2", "Delete unattached EBS", "No action needed"]
+    description: AI/ML-generated recommendation for cost optimization.
+  - name: date
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    description: Date of usage/cost record.
+  - name: invoice_id
+    type: choice
+    values: ["inv-1234abcd5678efgh", "inv-8765dcba4321hgfe"]
+    description: Invoice or billing document ID.
+  - name: linked_account_name
+    type: choice
+    values: ["FinanceProd", "MLDev"]
+    description: Friendly name for the linked account.
+  - name: cost_category
+    type: choice
+    values: ["shared", "project", "environment"]
+    description: Custom cost category for reporting (e.g., shared, project, environment).
+  - name: cost_allocation_rule
+    type: choice
+    values: ["default", "custom-rule-1"]
+    description: Cost allocation rule applied to this record.
+  - name: chargeback_target
+    type: choice
+    values: ["IT", "AI", "Finance"]
+    description: Entity (e.g., department, project) charged for this cost.
+  - name: data_source
+    type: choice
+    values: ["CUR", "Cost Explorer", "3rd party"]
+    description: Source of the cost data (e.g., CUR, Cost Explorer, 3rd party).

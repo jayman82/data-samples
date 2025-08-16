@@ -1,0 +1,83 @@
+topic: transportation_logistics_tracking
+context:
+  description: Simulated transportation and logistics tracking data for shipments, vehicles, and delivery analytics.
+  industries: [Transportation, Logistics, Supply Chain, Retail]
+  notes: |
+    - Includes shipment, vehicle, route, status, and event fields.
+    - Useful for delivery tracking, route optimization, and supply chain analytics.
+fields:
+  - name: shipment_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: carrier
+    type: choice
+    values: ["FedEx", "UPS", "DHL", "USPS", "Amazon Logistics", "XPO", "Old Dominion", "JB Hunt", "Ryder", "C.H. Robinson"]
+  - name: vehicle_type
+    type: choice
+    values: [Truck, Van, Airplane, Ship, Train, Drone]
+  - name: vehicle_id
+    type: string
+    pattern: '{prefix}-{num}'
+    components:
+      prefix:
+        type: choice
+        values: ["TRK", "VAN", "AIR", "SHP", "TRN", "DRN"]
+      num:
+        type: int
+        min: 1000
+        max: 9999
+  - name: origin
+    type: string
+    pattern: '{city}, {state}'
+    components:
+      city:
+        type: choice
+        values: ["Los Angeles", "Chicago", "Dallas", "Atlanta", "Seattle", "Miami", "Denver", "Houston", "Phoenix", "New York"]
+      state:
+        type: choice
+        values: [CA, IL, TX, GA, WA, FL, CO, NY, AZ]
+  - name: destination
+    type: string
+    pattern: '{city}, {state}'
+    components:
+      city:
+        type: choice
+        values: ["San Francisco", "Boston", "Orlando", "Detroit", "Portland", "Charlotte", "Las Vegas", "Philadelphia", "Minneapolis", "San Diego"]
+      state:
+        type: choice
+        values: [CA, MA, FL, MI, OR, NC, NV, PA, MN]
+  - name: status
+    type: choice
+    values: [In Transit, Delivered, Delayed, Out for Delivery, Exception, Returned]
+  - name: last_event
+    type: choice
+    values: [Departed Facility, Arrived at Facility, Out for Delivery, Delivered, Exception, Customs Clearance, Returned to Sender]
+  - name: event_timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-08-15
+    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: estimated_delivery
+    type: date
+    start: 2024-01-01
+    end: 2025-08-31
+    time_format: '%Y-%m-%d'
+  - name: actual_delivery
+    type: date
+    start: 2024-01-01
+    end: 2025-08-31
+    time_format: '%Y-%m-%d'
+  - name: distance_miles
+    type: int
+    min: 10
+    max: 3000
+  - name: weight_lbs
+    type: int
+    min: 1
+    max: 5000
+  - name: special_handling
+    type: multi_choice
+    values: [Fragile, Perishable, Oversized, Hazardous, High Value, Temperature Controlled, None]
+    min_choices: 1
+    max_choices: 3

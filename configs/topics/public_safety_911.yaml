@@ -1,0 +1,83 @@
+topic: public_safety_911
+context:
+  description: Simulated 911 call records for public safety, emergency response, and incident analytics.
+  industries: [Public Safety, Emergency Services, Government, Analytics]
+  notes: |
+    - Includes caller, incident, response, and location fields.
+    - Useful for emergency response analysis, resource allocation, and trend detection.
+fields:
+  - name: call_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: call_timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-08-15
+    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: caller_first_name
+    type: faker
+    faker_method: first_name
+  - name: caller_last_name
+    type: faker
+    faker_method: last_name
+  - name: caller_phone
+    type: string
+    pattern: '({area}) {prefix}-{suffix}'
+    components:
+      area:
+        type: int
+        min: 200
+        max: 999
+      prefix:
+        type: int
+        min: 200
+        max: 999
+      suffix:
+        type: int
+        min: 1000
+        max: 9999
+  - name: incident_type
+    type: choice
+    values: [Medical, Fire, Crime, Accident, Alarm, Hazard, Rescue, Other]
+  - name: priority
+    type: choice
+    values: [High, Medium, Low]
+    weights: [0.1, 0.3, 0.6]
+  - name: location
+    type: string
+    pattern: '{int} {street}, {city}, {state} {zip}'
+    components:
+      int:
+        type: int
+        min: 100
+        max: 9999
+      street:
+        type: choice
+        values: ["Main St", "Oak Ave", "Pine Rd", "Maple Dr", "Cedar Ln", "Elm St", "Sunset Blvd", "Park Ave", "Lakeview Ct", "Hilltop Rd"]
+      city:
+        type: choice
+        values: ["Springfield", "Riverton", "Lakeside", "Fairview", "Greenville", "Franklin", "Madison", "Georgetown", "Clinton", "Ashland"]
+      state:
+        type: choice
+        values: [CA, TX, NY, FL, IL, WA, CO, MA, GA, NC]
+      zip:
+        type: int
+        min: 10000
+        max: 99999
+  - name: response_time_minutes
+    type: int
+    min: 1
+    max: 60
+  - name: units_responded
+    type: int
+    min: 1
+    max: 10
+  - name: disposition
+    type: choice
+    values: [Resolved, Unfounded, Referred, Escalated, Cancelled]
+    weights: [0.7, 0.1, 0.1, 0.05, 0.05]
+  - name: notes
+    type: string
+    min_length: 0
+    max_length: 120

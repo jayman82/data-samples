@@ -1,0 +1,58 @@
+topic: lead_generation_saas_recall
+context:
+  description: Simulated lead generation list for a SaaS company offering product recall management services.
+  industries: [SaaS, Product Safety, Manufacturing, Retail, Compliance]
+  notes: |
+    - Includes company, contact, industry, recall history, and engagement fields.
+    - Useful for sales prospecting, marketing automation, and CRM demos.
+fields:
+  - name: company_id
+    type: reference
+    reference_file: data/company_pool.json
+    reference_field: company_id
+    unique: true
+  - name: company_name
+    type: reference
+    reference_file: data/company_pool.json
+    reference_field: company_name
+    unique: true
+  - name: company_address
+    type: faker
+    faker_method: address
+  - name: contact_name
+    type: faker
+    faker_method: name
+  - name: contact_email_faker
+    type: faker
+    faker_method: free_email
+  - name: contact_email
+    type: formula
+    formula: 'contact_name.lower().replace(" ", ".") + contact_email_faker[contact_email_faker.index("@"): ]'
+  - name: contact_phone
+    type: faker
+    faker_method: phone_number
+  - name: industry
+    type: choice
+    values: [Consumer Electronics, Automotive, Food & Beverage, Toys, Medical Devices, Apparel, Home Goods, Industrial Equipment]
+    weights: [0.2, 0.15, 0.15, 0.1, 0.1, 0.1, 0.1, 0.1]
+  - name: recall_history
+    type: choice
+    values: [None, 1-2 Recalls, 3-5 Recalls, 6+ Recalls]
+    weights: [0.6, 0.25, 0.1, 0.05]
+  - name: annual_revenue_musd
+    type: float
+    min: 1.0
+    max: 5000.0
+  - name: employee_count
+    type: int
+    min: 10
+    max: 10000
+  - name: engagement_status
+    type: choice
+    values: [Not Contacted, Attempted, Engaged, Demo Scheduled, Closed Won, Closed Lost]
+    weights: [0.4, 0.2, 0.15, 0.1, 0.1, 0.05]
+  - name: last_contact_date
+    type: date
+    start: 2024-01-01
+    end: 2025-08-15
+    time_format: '%Y-%m-%d'

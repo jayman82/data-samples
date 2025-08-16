@@ -1,0 +1,57 @@
+topic: travel_booking
+context:
+  description: Simulated travel and booking data for flights, hotels, and car rentals—ideal for itinerary management, analytics, and customer support bots.
+  industries: [Travel, Hospitality, Transportation, SaaS]
+  notes: |
+    - Includes user, booking, trip, and feedback fields.
+    - Useful for itinerary management, upsell/cross-sell, and customer support demos.
+fields:
+  - name: booking_id
+    type: int
+    min: 1000000
+    max: 9999999
+  - name: user_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: user_first_name
+    type: choice
+    values: ["Alex", "Jordan", "Morgan", "Taylor", "Casey", "Riley", "Jamie", "Avery", "Peyton", "Quinn"]
+  - name: user_last_name
+    type: choice
+    values: ["Kim", "Smith", "Lee", "Patel", "Brown", "Garcia", "Davis", "Martinez", "Wilson", "Chen"]
+  - name: trip_type
+    type: choice
+    values: [Flight, Hotel, Car Rental, Package]
+  - name: origin
+    type: choice
+    values: ["JFK", "LAX", "ORD", "ATL", "DFW", "DEN", "SFO", "SEA", "MIA", "BOS"]
+  - name: destination
+    type: choice
+    values: ["LHR", "CDG", "FRA", "AMS", "HND", "DXB", "SYD", "YYZ", "MAD", "GRU"]
+  - name: departure_date
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: return_date
+    type: date
+    start: 2024-01-01
+    end: 2025-01-15
+    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: price
+    type: float
+    min: 50.0
+    max: 5000.0
+  - name: status
+    type: choice
+    values: [Booked, Cancelled, Completed, No Show]
+  - name: feedback_score
+    type: float
+    min: 1.0
+    max: 5.0
+  - name: timestamp
+    type: date
+    start: 2024-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%dT%H:%M:%S'

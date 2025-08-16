@@ -1,0 +1,66 @@
+topic: subscription_saas_usage
+context:
+  description: Simulated SaaS subscription and usage data for analytics, churn prediction, and customer engagement.
+  industries: [SaaS, Software, Technology, Analytics]
+  notes: |
+    - Includes user, subscription, plan, usage, and billing fields.
+    - Useful for product analytics, upsell/cross-sell, and retention modeling.
+fields:
+  - name: user_id
+    type: int
+    min: 10000
+    max: 99999
+  - name: company_id
+    type: reference
+    reference_file: data/company_pool.json
+    reference_field: company_id
+    unique: true
+  - name: company_name
+    type: reference
+    reference_file: data/company_pool.json
+    reference_field: company_name
+    unique: true
+  - name: user_name
+    type: faker
+    faker_method: name
+  - name: user_email_faker
+    type: faker
+    faker_method: free_email
+  - name: user_email
+    type: formula
+    formula: 'user_name.lower().replace(" ", ".") + user_email_faker[user_email_faker.index("@"): ]'
+  - name: signup_date
+    type: date
+    start: 2022-01-01
+    end: 2025-01-01
+    time_format: '%Y-%m-%d'
+  - name: plan
+    type: choice
+    values: [Free, Basic, Pro, Enterprise]
+  - name: status
+    type: choice
+    values: [Active, Cancelled, Trial, Suspended]
+    weights: [0.7, 0.1, 0.15, 0.05]
+  - name: monthly_fee
+    type: formula
+    formula: '0 if plan == "Free" else (20 if plan == "Basic" else (50 if plan == "Pro" else 200))'
+  - name: usage_events
+    type: int
+    min: 0
+    max: 5000
+  - name: last_login
+    type: date
+    start: 2024-01-01
+    end: 2025-08-15
+    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: renewal_date
+    type: formula
+    formula: 'signup_date + timedelta(days=365)'
+  - name: churn_risk
+    type: choice
+    values: [Low, Medium, High]
+  - name: features_enabled
+    type: multi_choice
+    values: [API Access, Analytics, Integrations, Mobile App, SSO, Custom Branding, Priority Support, Data Export]
+    min_choices: 1
+    max_choices: 5
