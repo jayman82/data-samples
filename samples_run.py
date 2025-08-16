@@ -1,14 +1,14 @@
+import json
+import random
+import yaml
+from datetime import datetime, timedelta
+import os
 from saas_service_mappings import (
     PLAN_REVENUE_MULTIPLIER,
     PLAN_USAGE_MULTIPLIER,
     INDUSTRY_REVENUE_MULTIPLIER
 )
 from aws_service_mappings import SERVICE_USAGE_MULTIPLIER
-import json
-import random
-import yaml
-from datetime import datetime, timedelta
-import os
 from aws_service_mappings import (
     SERVICE_REGION_MAP,
     RESOURCE_ID_PATTERNS,
@@ -255,11 +255,12 @@ def get_field_value(field, context, prev_record=None, reference_pools=None):
     return None
 
 
-def generate_records_from_config(config, num_records=10000, upward_drift=0.005, spike_prob=0.02, spike_min=2.0, spike_max=10.0, spend_multiplier=1.0):
+def generate_records_from_config(config, num_records=10000, upward_drift=0.005, spike_prob=0.02, spike_min=2.0, spike_max=10.0, spend_multiplier=1.0, s3_partition_fields=None):
     records = []
     fields = config['fields']
     output_fields = [f['name'] for f in fields if not f['name'].endswith('_faker')]
-    s3_partition_fields = config.get('s3_partition_fields', [])
+    if s3_partition_fields is None:
+        s3_partition_fields = config.get('s3_partition_fields', [])
     # Pre-load all reference pools
     reference_pools = {}
     for field in fields:
@@ -326,7 +327,7 @@ def generate_records_from_config(config, num_records=10000, upward_drift=0.005, 
                 val = record.get(pf)
                 if val is None:
                     continue
-                # Try to parse as date
+                # Try to parse as date or datetime, but only use date part for partitioning
                 date_obj = None
                 if isinstance(val, str):
                     for fmt in ("%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"):
@@ -369,8 +370,6 @@ def main():
     s3_partition_fields = None
     if args.s3_partition_fields:
         s3_partition_fields = [f.strip() for f in args.s3_partition_fields.split(",") if f.strip()]
-    # Inject partition fields into function as attribute
-    generate_records_from_config.s3_partition_fields = s3_partition_fields
     records = generate_records_from_config(
         config,
         num_records=args.num_records,
@@ -378,8 +377,14 @@ def main():
         spike_prob=args.spike_prob,
         spike_min=args.spike_min,
         spike_max=args.spike_max,
-        spend_multiplier=args.spend_multiplier
+        spend_multiplier=args.spend_multiplier,
+        s3_partition_fields=s3_partition_fields
     )
+
+    # Debug: print first 5 records to check partition field values
+    print("Sample generated records (first 5):")
+    for rec in records[:5]:
+        print(rec)
 
     # Determine output path and type
     topic = config.get('topic', 'output')
@@ -412,23 +417,54 @@ def main():
             ext = "json"
         output_path = os.path.expanduser(f"~/Desktop/{topic}.{ext}")
 
-    if output_type == "json":
-        with open(output_path, "w") as f:
-            json.dump(records, f, indent=2)
-    elif output_type == "jsonl":
-        with open(output_path, "w") as f:
-            for rec in records:
-                f.write(json.dumps(rec) + "\n")
-    elif output_type == "csv":
-        df = pd.DataFrame(records)
-        df.to_csv(output_path, index=False)
-    elif output_type == "parquet":
-        df = pd.DataFrame(records)
-        df.to_parquet(output_path, index=False)
+    if s3_partition_fields and output_type in ("csv", "parquet"):
+        from collections import defaultdict
+        partitioned_records = defaultdict(list)
+        for rec in records:
+            s3_path = rec.get('s3_path', '')
+            partitioned_records[s3_path].append(rec)
+        # Debug: print partition paths and record counts
+        print("Partition summary:")
+        for s3_path, recs in list(partitioned_records.items())[:10]:
+            print(f"{s3_path}: {len(recs)} records")
+        print(f"Total partitions: {len(partitioned_records)}")
+        base_dir, base_file = os.path.split(output_path)
+        base_file_noext = os.path.splitext(base_file)[0]
+        ext = output_type
+        topic_dir = os.path.join(base_dir, topic)
+        if topic_dir:
+            os.makedirs(topic_dir, exist_ok=True)
+        for s3_path, recs in partitioned_records.items():
+            # Remove s3_path from records for output
+            for r in recs:
+                if 's3_path' in r:
+                    r.pop('s3_path')
+            part_dir = os.path.join(topic_dir, s3_path)
+            os.makedirs(part_dir, exist_ok=True)
+            part_file = os.path.join(part_dir, f"{base_file_noext}.{ext}")
+            df = pd.DataFrame(recs)
+            if output_type == "csv":
+                df.to_csv(part_file, index=False)
+            elif output_type == "parquet":
+                df.to_parquet(part_file, index=False)
+        print(f"Wrote {len(partitioned_records)} partitioned files under {topic_dir or '.'}")
     else:
-        raise ValueError(f"Unsupported output type: {output_type}")
-
-    print(f"Generated {len(records)} records for topic '{topic}' in {output_path} (type: {output_type})")
+        if output_type == "json":
+            with open(output_path, "w") as f:
+                json.dump(records, f, indent=2)
+        elif output_type == "jsonl":
+            with open(output_path, "w") as f:
+                for rec in records:
+                    f.write(json.dumps(rec) + "\n")
+        elif output_type == "csv":
+            df = pd.DataFrame(records)
+            df.to_csv(output_path, index=False)
+        elif output_type == "parquet":
+            df = pd.DataFrame(records)
+            df.to_parquet(output_path, index=False)
+        else:
+            raise ValueError(f"Unsupported output type: {output_type}")
+        print(f"Generated {len(records)} records for topic '{topic}' in {output_path} (type: {output_type})")
 
 
 if __name__ == "__main__":
