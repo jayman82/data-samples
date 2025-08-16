@@ -383,20 +383,34 @@ def main():
 
     # Determine output path and type
     topic = config.get('topic', 'output')
-    default_output = os.path.expanduser(f"~/Desktop/{topic}.json")
-    output_path = args.output if args.output else default_output
+    # Determine output type first
     output_type = args.output_type
+    output_path = args.output if args.output else None
     if output_type is None:
-        if output_path.endswith(".jsonl"):
+        if output_path and output_path.endswith(".jsonl"):
             output_type = "jsonl"
-        elif output_path.endswith(".json"):
+        elif output_path and output_path.endswith(".json"):
             output_type = "json"
-        elif output_path.endswith(".csv"):
+        elif output_path and output_path.endswith(".csv"):
             output_type = "csv"
-        elif output_path.endswith(".parquet"):
+        elif output_path and output_path.endswith(".parquet"):
             output_type = "parquet"
         else:
             output_type = "json"
+    # Set default output path based on type if not provided
+    if not output_path:
+        ext = output_type
+        if ext == "jsonl":
+            ext = "jsonl"
+        elif ext == "json":
+            ext = "json"
+        elif ext == "csv":
+            ext = "csv"
+        elif ext == "parquet":
+            ext = "parquet"
+        else:
+            ext = "json"
+        output_path = os.path.expanduser(f"~/Desktop/{topic}.{ext}")
 
     if output_type == "json":
         with open(output_path, "w") as f:
