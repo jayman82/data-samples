@@ -1,39 +1,63 @@
+# File: .gitignore
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*.pyo
+*$py.class
 
-# Virtual environments
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+*.whl
+
+# Unit test / coverage
+.cache/
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+
+# Virtual environment
 .venv/
-.env/
+venv/
+ENV/
+.env
+.envrc
 
-# Local CDK and Python output
-cdk.out/
-*.log
-
-# IDEs and tools
+# VSCode & IDEs
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
 
-# Mac-specific junk
+# Logs
+*.log
+
+# AWS CDK & SAM
+cdk.out/
+.ssm-cache/
+node_modules/
+cdk.context.json
+cdk.asset.*
+*.template.json
+
+# Mac-specific
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon
 
-# AWS credential or override files
-*.pem
-*.crt
-*.key
+# Python environment files
+*.pyo
 
-# Python test coverage
-coverage/
-*.cover
-.hypothesis/
-.cache/
+# Misc
+*.zip
+*.tar.gz
+*.tgz
+*.bak
+*.tmp
 
-# Pip tools
-pip-wheel-metadata/
-*.egg-info/
-dist/
-build/
+# Ignore runtime lambda zip builds
+/tmp/*
