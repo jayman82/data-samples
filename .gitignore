@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+.env/
+
+# Local CDK and Python output
+cdk.out/
+*.log
+
+# IDEs and tools
+.vscode/
+.idea/
+
+# Mac-specific junk
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# AWS credential or override files
+*.pem
+*.crt
+*.key
+
+# Python test coverage
+coverage/
+*.cover
+.hypothesis/
+.cache/
+
+# Pip tools
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/

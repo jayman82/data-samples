@@ -25,8 +25,8 @@ fields:
     faker_method: address
   - name: region
     type: choice
-    values: [North America, Europe, APAC, South America]
-    weights: [0.5, 0.2, 0.2, 0.1]
+    values: [North America, Europe, APAC, South America, Asia, Africa, Oceania]
+    weights: [0.5, 0.2, 0.1, 0.1, 0.05, 0.025, 0.025]
   - name: price
     type: float
     min: 10.0
@@ -42,8 +42,16 @@ fields:
   - name: total
     type: formula
     formula: price * quantity * (1 - discount)
-  - name: date
-    type: date
-    start: 2024-01-01
-    end: 2025-01-01
-    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: product_category
+    type: choice
+    values: [Electronics, Apparel, Home, Beauty, Sports, Books, Toys, Food, Automotive, Other]
+  - name: sales_channel
+    type: choice
+    values: [Online, In-Store, Phone, Partner]
+  - name: discount_pct
+    type: float
+    min: 0.0
+    max: 0.5
+  - name: customer_segment
+    type: choice
+    values: [New, Returning, VIP, Churn Risk]

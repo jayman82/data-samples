@@ -21,10 +21,13 @@ fields:
     faker_method: company
   - name: department
     type: choice
-    values: [Engineering, Sales, HR, Finance, Marketing, Operations, Support]
+    values: [Engineering, Sales, Marketing, HR, Finance, Operations, Support, Product, IT, Legal]
   - name: job_title
     type: choice
     values: [Engineer, Manager, Analyst, Director, Specialist, Coordinator, Executive]
+  - name: job_level
+    type: choice
+    values: [Entry, Associate, Senior, Lead, Manager, Director, VP, C-Level]
   - name: salary
     type: float
     min: 40000.0
@@ -35,16 +38,23 @@ fields:
     end: 2024-01-01
   - name: termination_date
     type: date
-    start: 2024-01-02
-    end: 2025-01-01
-  - name: is_active
+    start: 2015-01-01
+    end: 2024-12-31
+  - name: tenure_years
+    type: float
+    min: 0.0
+    max: 40.0
+  - name: attrition_risk
     type: choice
-    values: [true, false]
-    weights: [0.75, 0.25]
-  - name: performance_rating
+    values: [Low, Medium, High]
+    weights: [0.7, 0.2, 0.1]
+  - name: engagement_score
+    type: float
+    min: 0.0
+    max: 1.0
+  - name: gender
     type: choice
-    values: ["Excellent", "Good", "Satisfactory", "Needs Improvement"]
-  - name: last_review_date
-    type: date
-    start: 2024-01-01
-    end: 2025-01-01
+    values: [Male, Female, Other]
+  - name: ethnicity
+    type: choice
+    values: [White, Black, Asian, Hispanic, Native American, Pacific Islander, Other]

@@ -17,6 +17,7 @@ fields:
   - name: transaction_type
     type: choice
     values: [Deposit, Withdrawal, Transfer, Payment, Fee, Refund]
+    weights: [0.35, 0.2, 0.15, 0.25, 0.03, 0.02]  # Deposits/Payments most common
   - name: amount
     type: float
     min: 1.0
@@ -28,6 +29,9 @@ fields:
       Withdrawal: {min: 10.0, max: 5000.0}
       Transfer: {min: 10.0, max: 10000.0}
       Payment: {min: 1.0, max: 5000.0}
+  - name: merchant_category
+    type: choice
+    values: [Grocery, Dining, Travel, Online Retail, Utilities, Gas, Entertainment, Healthcare, Education, Other]
   - name: currency
     type: choice
     values: [USD, EUR, GBP, JPY]
@@ -37,7 +41,7 @@ fields:
     max: 100000.0
   - name: is_fraud
     type: choice
-    values: [false, false, false, false, true]  # ~20% chance of fraud
+    values: [false, false, false, false, false, false, false, false, true]  # ~10% fraud, more realistic
   - name: timestamp
     type: date
     start: 2024-01-01

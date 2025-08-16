@@ -6,6 +6,23 @@ context:
     - Includes shipment, product, supplier, warehouse, cost, and delivery fields.
     - Useful for inventory optimization, delivery performance, and cost analysis.
 fields:
+  - name: supplier
+    type: choice
+    values: [SupplierA, SupplierB, SupplierC, SupplierD, SupplierE, SupplierF, SupplierG, SupplierH, SupplierI, SupplierJ]
+  - name: part_type
+    type: choice
+    values: [Raw Material, Component, Subassembly, Finished Good, Packaging, Spare Part]
+  - name: lead_time_days
+    type: int
+    min: 1
+    max: 120
+  - name: region
+    type: choice
+    values: [North America, Europe, Asia, South America, Africa, Oceania]
+  - name: risk_score
+    type: float
+    min: 0.0
+    max: 1.0
   - name: shipment_id
     type: int
     min: 100000

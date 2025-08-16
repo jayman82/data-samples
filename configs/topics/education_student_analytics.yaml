@@ -46,5 +46,26 @@ fields:
   - name: timestamp
     type: date
     start: 2024-01-01
-    end: 2025-01-01
+    end: dynamic
     time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: grade_level
+    type: choice
+    values: [K, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  - name: subject
+    type: choice
+    values: [Math, Science, English, History, Art, Music, PE, Computer Science, Foreign Language]
+  - name: attendance_rate
+    type: float
+    min: 0.7
+    max: 1.0
+  - name: assessment_score
+    type: float
+    min: 0.0
+    max: 100.0
+  - name: intervention_flag
+    type: choice
+    values: [None, Tutoring, Counseling, Special Ed, ELL, Behavioral]
+  - name: engagement_score
+    type: float
+    min: 0.0
+    max: 1.0

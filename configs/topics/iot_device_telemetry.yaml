@@ -12,10 +12,13 @@ fields:
     max: 999999
   - name: device_type
     type: choice
-    values: [Thermostat, Camera, Door Sensor, Motion Sensor, Smart Plug, Vehicle Sensor, Light Bulb, Smoke Detector]
+    values: [Sensor, Gateway, Camera, Meter, Actuator, Wearable, Vehicle, Thermostat, Camera, Door Sensor, Motion Sensor, Smart Plug, Vehicle Sensor, Light Bulb, Smoke Detector]
+  - name: firmware_version
+    type: choice
+    values: ["1.0", "1.1", "1.2", "2.0", "2.1", "3.0"]
   - name: location
     type: choice
-    values: [Living Room, Kitchen, Garage, Bedroom, Office, Factory Floor, Warehouse, Vehicle]
+    values: ["New York", "San Francisco", "London", "Berlin", "Tokyo", "Sydney", "Remote", Living Room, Kitchen, Garage, Bedroom, Office, Factory Floor, Warehouse, Vehicle]
   - name: sensor_type
     type: choice
     values: [Temperature, Humidity, Motion, Power, Light, Smoke, Vibration, Speed]
@@ -39,8 +42,11 @@ fields:
     type: int
     min: 0
     max: 100
-  - name: timestamp
-    type: date
-    start: 2024-01-01
-    end: 2025-01-01
-    time_format: '%Y-%m-%dT%H:%M:%S'
+  - name: signal_strength
+    type: int
+    min: 0
+    max: 100
+  - name: anomaly
+    type: choice
+    values: [None, Outlier, Spike, Drop, Drift, Stuck]
+    weights: [0.95, 0.01, 0.01, 0.01, 0.01, 0.01]

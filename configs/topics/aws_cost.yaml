@@ -28,12 +28,12 @@ fields:
   - name: usage_start_time
     type: datetime
     min: "2024-01-01T00:00:00"
-    max: "2025-08-16T00:00:00"
+    max: dynamic
     description: Start time of the usage period.
   - name: usage_end_time
     type: datetime
     min: "2024-01-01T01:00:00"
-    max: "2025-08-16T23:59:59"
+    max: dynamic
     description: End time of the usage period.
   - name: service
     type: choice
@@ -336,6 +336,7 @@ fields:
     type: formula
     formula: usage_quantity * rate + base_fee
     by_service:
+      # All services below are guaranteed to have a rate and base_fee
       EC2: {rate: 0.10, base_fee: 1.0}
       S3: {rate: 0.023, base_fee: 0.0}
       Lambda: {rate: 0.00001667, base_fee: 0.0}
@@ -490,7 +491,7 @@ fields:
   - name: date
     type: date
     start: 2024-01-01
-    end: 2025-01-01
+    end: dynamic
     description: Date of usage/cost record.
   - name: invoice_id
     type: choice

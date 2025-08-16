@@ -6,6 +6,23 @@ context:
     - Includes shipment, vehicle, route, status, and event fields.
     - Useful for delivery tracking, route optimization, and supply chain analytics.
 fields:
+  - name: vehicle_type
+    type: choice
+    values: [Truck, Van, Train, Ship, Airplane, Drone, Bike, Car]
+  - name: route_id
+    type: int
+    min: 1000
+    max: 9999
+  - name: delay_min
+    type: float
+    min: 0.0
+    max: 180.0
+  - name: carrier
+    type: choice
+    values: [FedEx, UPS, DHL, USPS, Maersk, Amazon, Local, Other]
+  - name: status
+    type: choice
+    values: [On Time, Delayed, In Transit, Delivered, Exception]
   - name: shipment_id
     type: int
     min: 1000000
@@ -56,17 +73,17 @@ fields:
   - name: event_timestamp
     type: date
     start: 2024-01-01
-    end: 2025-08-15
+    end: dynamic
     time_format: '%Y-%m-%dT%H:%M:%S'
   - name: estimated_delivery
     type: date
     start: 2024-01-01
-    end: 2025-08-31
+    end: dynamic
     time_format: '%Y-%m-%d'
   - name: actual_delivery
     type: date
     start: 2024-01-01
-    end: 2025-08-31
+    end: dynamic
     time_format: '%Y-%m-%d'
   - name: distance_miles
     type: int

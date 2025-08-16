@@ -81,3 +81,19 @@ fields:
     type: string
     min_length: 0
     max_length: 120
+  - name: call_type
+    type: choice
+    values: [Medical, Fire, Police, Other]
+  - name: response_time_min
+    type: float
+    min: 1.0
+    max: 60.0
+  - name: outcome
+    type: choice
+    values: [Resolved, Escalated, Unresolved, False Alarm]
+  - name: location
+    type: choice
+    values: ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"]
+  - name: priority
+    type: choice
+    values: [Low, Medium, High, Critical]

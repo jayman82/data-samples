@@ -16,9 +16,19 @@ fields:
   - name: user_last_name
     type: faker
     faker_method: last_name
+  - name: age
+    type: int
+    min: 18
+    max: 90
+  - name: gender
+    type: choice
+    values: [Male, Female, Other]
   - name: device_type
     type: choice
     values: [Smartwatch, Fitness Band, Heart Monitor, Sleep Tracker, Blood Pressure Cuff]
+  - name: manufacturer
+    type: choice
+    values: [Fitbit, Apple, Garmin, Samsung, Xiaomi, Withings, Polar, Other]
   - name: heart_rate
     type: int
     min: 40
@@ -35,12 +45,15 @@ fields:
     type: int
     min: 0
     max: 5000
+  - name: activity_type
+    type: choice
+    values: [Walking, Running, Sleeping, Cycling, Swimming, Sedentary, Other]
   - name: alert
     type: choice
     values: [None, High Heart Rate, Low Heart Rate, Fall Detected, Irregular Rhythm, Low Battery]
-    weights: [0.85, 0.05, 0.03, 0.03, 0.02, 0.02]
+    weights: [0.95, 0.01, 0.01, 0.01, 0.01, 0.01]  # Serious alerts are rare
   - name: timestamp
     type: date
     start: 2024-01-01
-    end: 2025-01-01
+    end: dynamic
     time_format: '%Y-%m-%dT%H:%M:%S'
