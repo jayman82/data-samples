@@ -1,0 +1,68 @@
+# AWS Well-Architected Knowledge Base Seed URLs
+# Curated list of authoritative entry points for discovery and curation
+# Categories: framework, prescriptive-guidance, security, solutions, blogs
+
+framework:
+  - name: Well-Architected Framework Home
+    url: https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html
+  - name: Operational Excellence Pillar
+    url: https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/welcome.html
+  - name: Security Pillar
+    url: https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html
+  - name: Reliability Pillar
+    url: https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html
+  - name: Performance Efficiency Pillar
+    url: https://docs.aws.amazon.com/wellarchitected/latest/performance-efficiency-pillar/welcome.html
+  - name: Cost Optimization Pillar
+    url: https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html
+  - name: Sustainability Pillar
+    url: https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/welcome.html
+
+prescriptive_guidance:
+  - name: AWS Landing Zone (Control Tower)
+    url: https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html
+  - name: Migration Playbook
+    url: https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/migration.html
+  - name: Account Vending & Guardrails
+    url: https://docs.aws.amazon.com/prescriptive-guidance/latest/landing-zones/landing-zones.html
+
+security:
+  - name: AWS Security Reference Architecture (SRA) - Overview
+    url: https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html
+  - name: SRA - Logging & Monitoring
+    url: https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/log-archive.html
+  - name: Identity & Access Management Best Practices
+    url: https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+  - name: AWS Organizations Best Practices
+    url: https://docs.aws.amazon.com/organizations/latest/userguide/best-practices.html
+
+solutions_library:
+  - name: AWS Solutions Library Home
+    url: https://aws.amazon.com/solutions/
+  - name: Multi-Account Governance Solution
+    url: https://aws.amazon.com/solutions/implementations/aws-control-tower-account-factory/
+  - name: Backup & Recovery Solutions
+    url: https://aws.amazon.com/solutions/implementations/aws-backup-architecture/
+  - name: Serverless Reference Architectures
+    url: https://aws.amazon.com/solutions/case-studies/serverless/
+
+architecture_center:
+  - name: AWS Architecture Center
+    url: https://aws.amazon.com/architecture/
+  - name: Reference Architecture Diagrams
+    url: https://aws.amazon.com/architecture/reference-architecture-diagrams/
+
+blogs:
+  - name: AWS Architecture Blog - Well-Architected
+    url: https://aws.amazon.com/blogs/architecture/tag/aws-well-architected/
+  - name: AWS Architecture Blog - Best Practices
+    url: https://aws.amazon.com/blogs/architecture/category/best-practices/
+  - name: AWS Architecture Blog - Security
+    url: https://aws.amazon.com/blogs/security/
+
+genai:
+  - name: Generative AI on AWS - Best Practices
+    url: https://aws.amazon.com/generative-ai/
+  - name: Architecting GenAI workloads (blog tag)
+    url: https://aws.amazon.com/blogs/architecture/tag/generative-ai/
+
